@@ -34,20 +34,23 @@ func IniciarConfiguracion(filePath string) *globals.Config {
 	return config
 }
 
-func LeerConsola() {
+func LeerConsola() string {
 	// Leer de la consola
 	reader := bufio.NewReader(os.Stdin)
 	log.Println("Ingrese los mensajes")
 	text, _ := reader.ReadString('\n')
 	log.Print(text)
+	return text
 }
 
-func GenerarYEnviarPaquete() {
+func GenerarYEnviarPaquete(valor string) {
 	paquete := Paquete{}
 	// Leemos y cargamos el paquete
+	paquete.Valores = append(paquete.Valores, valor)
 
-	log.Printf("paqute a enviar: %+v", paquete)
-	// Enviamos el paqute
+	log.Printf("paquete a enviar: %+v", paquete)
+	// Enviamos el paquete
+	EnviarPaquete(globals.ClientConfig.Ip, globals.ClientConfig.Puerto, paquete)
 }
 
 func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
@@ -81,8 +84,18 @@ func EnviarPaquete(ip string, puerto int, paquete Paquete) {
 	log.Printf("respuesta del servidor: %s", resp.Status)
 }
 
+func ValidarServidor(ip string, puerto int) {
+	url := fmt.Sprintf("http://%s:%d/handshake", ip, puerto)
+	resp, err := http.Get(url)
+	if err != nil {
+		log.Printf("error conectando a ip:%s puerto:%d", ip, puerto)
+	}
+
+	log.Printf("respuesta del servidor: %s", resp.Status)
+}
+
 func ConfigurarLogger() {
-	logFile, err := os.OpenFile("tp0.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
+	logFile, err := os.OpenFile("./logs/cliente.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
 		panic(err)
 	}
