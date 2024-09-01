@@ -2,7 +2,8 @@ package main
 
 import (
 	"net/http"
-	"server/utils"
+
+	"github.com/AgustinCardozo/tp0-golang/server/utils"
 )
 
 func main() {

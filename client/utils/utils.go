@@ -3,13 +3,14 @@ package utils
 import (
 	"bufio"
 	"bytes"
-	"client/globals"
 	"encoding/json"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/AgustinCardozo/tp0-golang/client/globals"
 )
 
 type Mensaje struct {

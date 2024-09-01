@@ -1,14 +1,17 @@
 package main
 
 import (
-	"client/globals"
-	"client/utils"
 	"log"
+
+	"github.com/AgustinCardozo/tp0-golang/client/globals"
+	"github.com/AgustinCardozo/tp0-golang/client/utils"
+
+	"github.com/AgustinCardozo/tp0-golang/lib/commons"
 )
 
 func main() {
 	utils.ConfigurarLogger()
-
+	commons.ConfigurarLogger("./cliente.log", "info")
 	// loggear "Hola soy un log" usando la biblioteca log
 	log.Println("Hola soy un log")
 	globals.ClientConfig = utils.IniciarConfiguracion("config.json")
