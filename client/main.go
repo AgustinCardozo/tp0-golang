@@ -5,8 +5,7 @@ import (
 
 	"github.com/AgustinCardozo/tp0-golang/client/globals"
 	"github.com/AgustinCardozo/tp0-golang/client/utils"
-
-	"github.com/AgustinCardozo/tp0-golang/lib/commons"
+	"github.com/AgustinCardozo/tp0-golang/lib/utils"
 )
 
 func main() {
