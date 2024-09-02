@@ -3,10 +3,12 @@ package main
 import (
 	"net/http"
 
+	"github.com/AgustinCardozo/tp0-golang/lib/utils"
 	"github.com/AgustinCardozo/tp0-golang/server/utils"
 )
 
 func main() {
+	commons.ConfigurarLogger("../server/logs/server.log", "info")
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/handshake", utils.Handshake)

@@ -2,7 +2,8 @@ package utils
 
 import (
 	"encoding/json"
-	"log"
+	"fmt"
+	"log/slog"
 	"net/http"
 )
 
@@ -19,14 +20,14 @@ func RecibirPaquetes(w http.ResponseWriter, r *http.Request) {
 	var paquete Paquete
 	err := decoder.Decode(&paquete)
 	if err != nil {
-		log.Printf("error al decodificar mensaje: %s\n", err.Error())
+		slog.Error(fmt.Sprintf("error al decodificar mensaje: %s\n", err.Error()))
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("error al decodificar mensaje"))
 		return
 	}
 
-	log.Println("me llego un paquete de un cliente")
-	log.Printf("%+v\n", paquete)
+	slog.Info("me llego un paquete de un cliente")
+	slog.Info(fmt.Sprintf("%+v\n", paquete))
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
@@ -37,14 +38,14 @@ func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
 	var mensaje Mensaje
 	err := decoder.Decode(&mensaje)
 	if err != nil {
-		log.Printf("Error al decodificar mensaje: %s\n", err.Error())
+		slog.Error(fmt.Sprintf("Error al decodificar mensaje: %s\n", err.Error()))
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Error al decodificar mensaje"))
 		return
 	}
 
-	log.Println("Me llego un mensaje de un cliente")
-	log.Printf("%+v\n", mensaje)
+	slog.Info("Me llego un mensaje de un cliente")
+	slog.Info(fmt.Sprintf("%+v\n", mensaje))
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))

@@ -42,11 +42,12 @@ func Iniciar(filePath string, configJson interface{}) {
 }
 
 func ConfigurarLogger(logPath string, logLevel string) {
-	file, err := os.Create(logPath)
+	file, err := os.OpenFile(logPath, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
 		panic(err)
 	}
 	log.SetOutput(file)
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 
 	switch logLevel {
 	case "debug":
