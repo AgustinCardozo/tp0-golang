@@ -1,9 +1,13 @@
 package globals
 
-type Config struct {
-	Ip      string `json:"ip"`
-	Puerto  int    `json:"puerto"`
-	Mensaje string `json:"mensaje"`
-}
+import (
+	commons "github.com/AgustinCardozo/tp0-golang/lib/utils"
+)
 
-var ClientConfig *Config
+// type Config struct {
+// 	Ip      string `json:"ip"`
+// 	Puerto  int    `json:"puerto"`
+// 	Mensaje string `json:"mensaje"`
+// }
+
+var ClientConfig *commons.Cliente

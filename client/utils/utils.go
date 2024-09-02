@@ -11,6 +11,7 @@ import (
 	"os"
 
 	"github.com/AgustinCardozo/tp0-golang/client/globals"
+	commons "github.com/AgustinCardozo/tp0-golang/lib/utils"
 )
 
 type Mensaje struct {
@@ -21,8 +22,8 @@ type Paquete struct {
 	Valores []string `json:"valores"`
 }
 
-func IniciarConfiguracion(filePath string) *globals.Config {
-	var config *globals.Config
+func IniciarConfiguracion(filePath string) *commons.Cliente {
+	var config *commons.Cliente
 	configFile, err := os.Open(filePath)
 	if err != nil {
 		log.Fatal(err.Error())
