@@ -9,6 +9,7 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/AgustinCardozo/tp0-golang/client/globals"
 )
@@ -21,19 +22,28 @@ type Paquete struct {
 	Valores []string `json:"valores"`
 }
 
-func LeerConsola() string {
+func LeerConsola() Paquete {
 	// Leer de la consola
-	reader := bufio.NewReader(os.Stdin)
-	log.Println("Ingrese los mensajes")
-	text, _ := reader.ReadString('\n')
-	log.Print(text)
-	return text
+	paquete := Paquete{}
+	for {
+		reader := bufio.NewReader(os.Stdin)
+		log.Println("Ingrese un mensaje (o escriba 'fin' para terminar):")
+		text, _ := reader.ReadString('\n')
+		text = strings.TrimSpace(text) // Eliminamos \n y espacios
+		log.Print(text)
+
+		if text == "fin" {
+			break
+		}
+
+		paquete.Valores = append(paquete.Valores, text)
+	}
+	return paquete
 }
 
-func GenerarYEnviarPaquete(valor string) {
-	paquete := Paquete{}
+func GenerarYEnviarPaquete() {
 	// Leemos y cargamos el paquete
-	paquete.Valores = append(paquete.Valores, valor)
+	paquete := LeerConsola()
 
 	slog.Info(fmt.Sprintf("paquete a enviar: %+v", paquete))
 	// Enviamos el paquete
